@@ -1,7 +1,7 @@
 const TeacherAnalytics = () => {
     return ( 
         <div>
-            Analytics
+            Analytics updated
         </div>
      );
 }
