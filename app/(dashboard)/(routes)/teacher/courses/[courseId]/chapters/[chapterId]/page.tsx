@@ -8,6 +8,8 @@ import ChapterTitleForm from "./_components/chapter-title-form";
 import ChapterDescriptionForm from "./_components/chapter-description-form";
 import ChapterAccessForm from "./_components/chapter-access-form";
 import ChapterVideoForm from "./_components/chapter-video-form";
+import { Banner } from "@/components/ui/banner";
+import { ChapterActions } from "./_components/chapter-actions";
 
 async function ChapterIdPage({params}: {
   params: {courseId: string; chapterId: string}
@@ -40,10 +42,17 @@ async function ChapterIdPage({params}: {
   const completedFields = requiredField.filter(Boolean).length;
 
   const completionFileds = `(${completedFields}/${totalFields})`;
+  const isComplete = requiredField.every(Boolean);
 
   return (
-    
-    <div className="p-6">
+  <>
+     {!chapter.isPublishred && (
+      <Banner
+        variant="warning"
+        label="This chapter is not published"
+      />
+     )}
+     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="w-full">
           <Link 
@@ -62,7 +71,12 @@ async function ChapterIdPage({params}: {
                 Complete all fields {completionFileds}
                </span>
             </div>
-
+            <ChapterActions
+               disabled= {!isComplete}
+               courseId={params.courseId}
+               chapterId={params.chapterId}
+               isPublished={chapter.isPublishred}
+            />
           </div>
         </div>
       </div>
@@ -114,6 +128,7 @@ async function ChapterIdPage({params}: {
         </div>
       </div>
     </div>
+  </>
   )
 }
 
