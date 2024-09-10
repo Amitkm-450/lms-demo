@@ -10,6 +10,10 @@ import CategoryForm from "./_components/category-form";
 import PriceForm from "./_components/price-form";
 import AttachmentForm from "./_components/attachments-form";
 import ChapterForm from "./_components/chapter-form";
+import { boolean } from "zod";
+import { Banner } from "@/components/ui/banner";
+import { Actions } from "./_components/actions";
+import { Cousine } from "next/font/google";
 
 const CourseIdPage = async({
     params
@@ -61,11 +65,22 @@ const CourseIdPage = async({
     ];
 
     const totalFields = requiredField.length;
+    console.log(requiredField);
     const completedFields = requiredField.filter(Boolean).length;
 
     const completionText = `(${completedFields} / ${totalFields})`;
+    const isComplete = requiredField
+    .filter((field, index) => index !== 4) // exclude category field by its index
+    .every(Boolean);
 
     return ( 
+      <>
+       {!course.isPublished && (
+        <Banner
+          label="This course is not visible to students"
+        />
+       )}
+
         <div className="p-6">
            <div className="flex items-center justify-between">
               <div className="flex flex-col gap-y-2">
@@ -76,6 +91,11 @@ const CourseIdPage = async({
                     Complete all fields {completionText}
                 </span>
               </div>
+              <Actions
+                disabled={!isComplete}
+                courseId={params.courseId}
+                isPublished={course.isPublished}
+              />
            </div>
            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
               <div>
@@ -147,6 +167,8 @@ const CourseIdPage = async({
               </div>
            </div>
         </div>
+            
+        </>
      );
 }
  

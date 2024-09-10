@@ -50,8 +50,10 @@ export const Combobox = ({
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder="Search for an option..." />
-          <CommandEmpty>No option found.</CommandEmpty>
+          
           <CommandList>
+          <CommandEmpty>No option found.</CommandEmpty>
+          <CommandGroup>
             {options.map((option) => (
               
                   <CommandItem
@@ -73,6 +75,7 @@ export const Combobox = ({
               </CommandItem>
               
             ))}
+            </CommandGroup>
           </CommandList>
         </Command>
       </PopoverContent>

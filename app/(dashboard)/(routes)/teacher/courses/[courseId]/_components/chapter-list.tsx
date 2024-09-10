@@ -93,9 +93,9 @@ export  const ChaptersList = ({items,
                                {chapter.title}
                                <div className="ml-auto pr-2 flex items-center gap-x-2">
                                 {chapter.isFree && (
-                                    <Badge>
-                                        Free
-                                    </Badge>
+                                    <div className="flex justify-center rounded-md  h-auto w-20 ml-auto bg-green-300">
+                                     Free
+                                   </div>
                                 )}
                                 <div className="flex justify-center rounded-md  h-auto w-20 ml-auto bg-slate-400">
                                     {chapter.isPublishred ? "Published" : "Draft"}
